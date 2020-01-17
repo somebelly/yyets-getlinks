@@ -73,9 +73,11 @@ async function getLinks (url) {
         }
       })
 
-      const clipboardy = require('clipboardy')
-      await clipboardy.write('')
-      await clipboardy.write(links.join('\n'))
+      const fs = require('fs')
+      fs.writeFile('linklist.txt', links.join('\n'), function (err) {
+        if (err) throw err
+        logger.log('info', 'Saved.')
+      })
     })
     .catch((err) => {
       logger.log('error', err.message)
