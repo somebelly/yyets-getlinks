@@ -66,9 +66,10 @@ async function getLinks (url) {
 
   await request({ uri: `http://got001.com/api/v1/static/resource/detail?code=${code}` })
     .then(async res => {
+      const mode = 'APP'
       JSON.parse(res).data.list.map(season => {
-        if (season.formats.includes('APP')) {
-          season.items.APP.map(link => links.push(link.name))
+        if (season.formats.includes(mode)) {
+          season.items[mode].map(link => links.push(link.name))
         }
       })
 
